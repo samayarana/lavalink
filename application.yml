@@ -25,7 +25,7 @@ lavalink:
     password: "iamprmgvyt"
     sources:
       # YouTube mặc định PHẢI TẮT vì ta đã dùng plugin ở trên
-      youtube: false 
+      youtube: true
       bandcamp: true
       soundcloud: true
       twitch: true
