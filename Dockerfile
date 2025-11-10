@@ -1,5 +1,5 @@
 # Sử dụng base image có sẵn Java 17 LTS (Rất quan trọng cho Lavalink)
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin
 
 # Thiết lập thư mục làm việc bên trong container
 WORKDIR /app
