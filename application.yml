@@ -25,11 +25,11 @@ lavalink:
       spotify:
         clientId: "85aab1d51a174aad9eed6d7989f530e6" # Thay bằng Client ID thật
         clientSecret: "b2ad05aa725e434c88776a1be8eab6c2" # Thay bằng Client Secret thật
-        countryCode: "VN"
+        countryCode: "IN"
 
   # B. CẤU HÌNH SERVER CHUNG
   server:
-    password: "iamprmgvyt" # Mật khẩu node của bạn
+    password: "e" # Mật khẩu node của bạn
     
     # ⚠️ CÁC NGUỒN TÌM KIẾM
     sources:
