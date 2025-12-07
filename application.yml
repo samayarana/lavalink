@@ -1,103 +1,106 @@
-# ----------------------------------------------------------------------
-# I. CẤU HÌNH SERVER VÀ PORT (BẮT BUỘC CHO RENDER)
-# ----------------------------------------------------------------------
-server:
-  port: 80 # 🌟 Cổng bắt buộc cho Render
-  address: 0.0.0.0
-  http2:
-    enabled: false
-
-# ----------------------------------------------------------------------
-# II. KHAI BÁO CÁC PLUGIN BÊN NGOÀI
-# ----------------------------------------------------------------------
-plugins:
-  # ⚠️ CHỈ SỬ DỤNG LAVASRC (LAVA MEDIA SOURCE)
-  - dependency: "dev.arbjerg.lavalink.plugins.lavasrc.LavaSrc" 
-    
-# ----------------------------------------------------------------------
-# III. CẤU HÌNH LAVALINK CHÍNH (lavalink:)
-# ----------------------------------------------------------------------
 lavalink:
-  
-  # A. CẤU HÌNH CHO LAVASRC PLUGIN
-  plugins:
-    lavasrc:
-      spotify:
-        clientId: "85aab1d51a174aad9eed6d7989f530e6" # Thay bằng Client ID thật
-        clientSecret: "b2ad05aa725e434c88776a1be8eab6c2" # Thay bằng Client Secret thật
-        countryCode: "IN"
+    server:
+        bufferDurationMs: 400
+        filters:
+            channelMix: true
+            distortion: true
+            equalizer: true
+            karaoke: true
+            lowPass: true
+            rotation: true
+            timescale: true
+            tremolo: true
+            vibrato: true
+            volume: true
+        frameBufferDurationMs: 5000
+        gcWarnings: true
+        opusEncodingQuality: 10
+        password: e        # ← old password applied
+        playerUpdateInterval: 5
+        resamplingQuality: HIGH
+        soundcloudSearchEnabled: true
+        sources:
+            bandcamp: true
+            http: true
+            local: false
+            nico: true
+            soundcloud: true
+            twitch: true
+            vimeo: true
+            youtube: false
+        trackStuckThresholdMs: 10000
+        useSeekGhosting: true
+        youtubePlaylistLoadLimit: 6
+        youtubeSearchEnabled: true
 
-  # B. CẤU HÌNH SERVER CHUNG
-  server:
-    password: "e" # Mật khẩu node của bạn
-    
-    # ⚠️ CÁC NGUỒN TÌM KIẾM
+lavasrc:
+    applemusic:
+        albumLoadLimit: 6
+        countryCode: US
+        mediaAPIToken: REDACTED
+        playlistLoadLimit: 6
+    flowerytts:
+        audioFormat: mp3
+        silence: 0
+        speed: 1
+        translate: false
+        voice: default voice
+    providers:
+        - spsearch:%QUERY%
+        - ytmsearch:"%ISRC%"
+        - ytmsearch:%QUERY%
     sources:
-      # TẮT NGUỒN YOUTUBE MẶC ĐỊNH ĐỂ LAVASRC XỬ LÝ
-      youtube: false 
-      bandcamp: true
-      soundcloud: true
-      twitch: true
-      vimeo: true
-      nico: true
-      http: true 
-      local: false
-
-    # CÁC THIẾT LẬP KHÁC (GIỮ NGUYÊN)
-    filters:
-      volume: true
-      equalizer: true
-      karaoke: true
-      timescale: true
-      tremolo: true
-      vibrato: true
-      distortion: true
-      rotation: true
-      channelMix: true
-      lowPass: true
-    nonAllocatingFrameBuffer: false
-    bufferDurationMs: 400
-    frameBufferDurationMs: 5000
-    opusEncodingQuality: 10
-    resamplingQuality: LOW 
-    trackStuckThresholdMs: 10000
-    useSeekGhosting: true
-    youtubePlaylistLoadLimit: 6
-    playerUpdateInterval: 5
-    youtubeSearchEnabled: false # Lavalink v4.x tự động quản lý qua LavaSrc
-    soundcloudSearchEnabled: true
-    gc-warnings: true
-    timeouts:
-      connectTimeoutMs: 3000
-      connectionRequestTimeoutMs: 3000
-      socketTimeoutMs: 3000
-
-# ----------------------------------------------------------------------
-# IV. CẤU HÌNH LOGGING VÀ METRICS (KHÔNG CẦN CHỈNH SỬA)
-# ----------------------------------------------------------------------
-metrics:
-  prometheus:
-    enabled: false
-    endpoint: /metrics
-
-sentry:
-  dsn: ""
-  environment: ""
+        applemusic: false
+        deezer: false
+        flowerytts: false
+        spotify: true
+        yandexmusic: false
+    spotify:
+        albumLoadLimit: 6
+        clientId: f71a3da30e254962965ca2a89d6f74b9
+        clientSecret: 199a619d22dd4e55a4a2c1a7a3d70e63
+        countryCode: US
+        playlistLoadLimit: 6
+    yandexmusic:
+        accessToken: REDACTED
 
 logging:
-  file:
-    path: ./logs/
-  level:
-    root: INFO
-    lavalink: INFO
-  request:
-    enabled: true
-    includeClientInfo: true
-    includeHeaders: false
-    includeQueryString: true
-    includePayload: true
-    maxPayloadLength: 10000
-  logback:
-    rollingpolicy:
-      max-file-size: 1GB
-      max-history: 30
+    file:
+        path: ./logs/
+    level:
+        lavalink: INFO
+        root: INFO
+    logback:
+        rollingPolicy:
+            maxFileSize: 1GB
+            maxHistory: 30
+    request:
+        enabled: true
+        includeClientInfo: true
+        includeHeaders: false
+        includePayload: true
+        includeQueryString: true
+        maxPayloadLength: 10000
+
+metrics:
+    prometheus:
+        enabled: false
+        endpoint: /metrics
+
+plugins:
+    youtube:
+        enabled: true
+        oauth:
+            enabled: true
+            refreshToken: 1//03VgJ0YlJoAOVCgYIARAAGAMSNwF-L9Ir9qtHF8cKS2lwrpPI_eoFVdQ6v2Mv4ZRjEETawHjdBJe3K2H90yQSnoBJ9Ht-f4QXJl8
+            skipInitialization: true
+
+sentry:
+    dsn: ""
+    environment: ""
+
+server:
+    address: 0.0.0.0
+    http2:
+        enabled: false
+    port: 80        # ← old port applied
