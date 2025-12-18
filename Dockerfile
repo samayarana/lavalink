@@ -1,15 +1,17 @@
-# Sử dụng base image có sẵn Java 17 LTS (Rất quan trọng cho Lavalink)
-FROM eclipse-temurin
+# Use Java 17 JRE (Lightweight and perfect for Lavalink v4)
+FROM eclipse-temurin:17-jre-jammy
 
-# Thiết lập thư mục làm việc bên trong container
+# Set the working directory
 WORKDIR /app
 
-# Sao chép file Lavalink.jar và application.yml từ repository của bạn vào container
+# Copy the jar and config file
+# Ensure these filenames match your GitHub files exactly (Case-sensitive!)
 COPY Lavalink.jar .
 COPY application.yml .
 
-# Expose cổng mà Lavalink sẽ chạy (khớp với 8080 trong application.yml)
+# Render uses the PORT environment variable. 
+# While EXPOSE 80 is fine, Render ignores this and uses its own routing.
 EXPOSE 80
 
-# Đặt lệnh khởi động chính thức (thay thế Docker Command trên Render)
-CMD ["java", "-jar", "Lavalink.jar"]
+# Recommended command for memory management on Render's Free Tier
+CMD ["java", "-Xmx512m", "-jar", "Lavalink.jar"]
