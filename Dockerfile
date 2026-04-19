@@ -1,6 +1,5 @@
 # Use Java 17 JRE (Lightweight and perfect for Lavalink v4)
-FROM eclipse-temurin:21-jre-jammy
-
+FROM eclipse-temurin:21-jre
 # Set the working directory
 WORKDIR /app
 
