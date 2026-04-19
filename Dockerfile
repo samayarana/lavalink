@@ -1,16 +1,21 @@
-# Use Java 17 JRE (Lightweight and perfect for Lavalink v4)
+# Use Java 21 (Temurin) which is the current standard for Lavalink v4
 FROM eclipse-temurin:21-jre
-# Set the working directory
+
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the jar and config file
-# Ensure these filenames match your GitHub files exactly (Case-sensitive!)
+# 1. Copy the Lavalink executable
+# Ensure the file in your GitHub is named exactly 'Lavalink.jar'
 COPY Lavalink.jar .
+
+# 2. Copy your configuration file
 COPY application.yml .
 
-# Render uses the PORT environment variable. 
-# While EXPOSE 80 is fine, Render ignores this and uses its own routing.
-EXPOSE 80
+# 3. CRITICAL: Copy your plugins folder containing the .jar files
+# This ensures the lavasrc, youtube, and lavasearch plugins are available
+COPY plugins/ ./plugins/
 
-# Recommended command for memory management on Render's Free Tier
-CMD ["java", "-Xmx512m", "-jar", "Lavalink.jar"]
+# Render automatically assigns a port via the $PORT environment variable.
+# We tell Java to use that port, or default to 80 if not found.
+# We also set Xmx to 400m to stay safely under Render's 512MB RAM limit.
+CMD ["sh", "-c", "java -Xmx400m -Dserver.port=${PORT:-80} -jar Lavalink.jar"]
